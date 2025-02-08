@@ -2,14 +2,13 @@
 import Layout from "@/components/kokonutui/layout";
 import { Trophy, Medal, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 
 interface User {
   username: string;
   points: number;
 }
 
-const staticUsers: User[] = [
+const users: User[] = [
   { username: "CryptoKing", points: 1250 },
   { username: "InvestorPro", points: 980 },
   { username: "MoneyMaker", points: 875 },
@@ -19,6 +18,7 @@ const staticUsers: User[] = [
   { username: "SavingsStar", points: 430 },
   { username: "StockMarketSage", points: 320 },
   { username: "EconomyExpert", points: 210 },
+  { username: "YourUsername", points: 0 },
 ];
 
 const containerVariants = {
@@ -45,29 +45,6 @@ const itemVariants = {
 };
 
 export default function LeaderboardPage() {
-  // Use local state to hold your dynamic score.
-  const [score, setScore] = useState(1000);
-
-  // Simulate an update to the score (for example, after an API call or user action)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setScore(1050); // Update your score dynamically here.
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Create your current user using the dynamic score.
-  const currentUser: User = {
-    username: "YourUsername",
-    points: score,
-  };
-
-  // Combine the static users with your current user.
-  const users: User[] = [...staticUsers, currentUser];
-
-  // Sort the users by points in descending order.
-  const sortedUsers = [...users].sort((a, b) => b.points - a.points);
-
   return (
     <Layout>
       <motion.div
@@ -108,7 +85,7 @@ export default function LeaderboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-zinc-700">
-              {sortedUsers.map((user, index) => (
+              {users.map((user, index) => (
                 <motion.tr
                   key={user.username}
                   className={
