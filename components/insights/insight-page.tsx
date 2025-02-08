@@ -73,6 +73,7 @@ const Insights = () => {
       { label: "Gross Profit", value: "GrossProfit" },
       { label: "Net Income Loss", value: "NetIncomeLoss" },
       { label: "Operating Expenses", value: "OperatingExpenses" },
+      { label: "Revenues", value: "Revenues" },
     ],
   };
 
@@ -157,6 +158,7 @@ const Insights = () => {
     }
 
     console.log("Could not find the pair", { category, property });
+    alert("Sorry that combination may not be found in the Archives");
     return null; // Return null or an empty array if the property doesn't exist
   };
 
