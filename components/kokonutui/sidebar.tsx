@@ -23,6 +23,7 @@ import Image from "next/image"
 import { Table2 } from "lucide-react";
 import { SquareSigma } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
+import { Swords } from "lucide-react";
 
 
 
@@ -73,10 +74,10 @@ export default function Sidebar() {
       >
         <div className="h-full flex flex-col">
           <Link
-            href="https://kokonutui.com/"
+            href="dashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-16 px-6 flex items-center border-b border-gray-200 dark:border-[#1F1F23]"
+            className="h-16 px-6 flex items-center border-b border-white-10 dark:border-[#1F1F23]"
           >
             <div className="flex items-center gap-3">
               <Image
@@ -106,10 +107,11 @@ export default function Sidebar() {
                   Learn
                 </div>
                 <div className="space-y-1">
-                   <NavItem href="#" icon={Building2}>
+                   <NavItem href="dashboard.csx" icon={Building2}>
                     Income Statement
                   </NavItem>
-                  <NavItem href="#" icon={Table2}>
+                  <NavItem href="" icon={Table2}>
+
                       Balance Sheet
                   </NavItem>                 
                   <NavItem href="#" icon={Wallet}>
@@ -131,9 +133,10 @@ export default function Sidebar() {
 
 
               <div>
-                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Compete
-                </div>
+                  <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  <Swords className="inline-block mr-2 h-4 w-4" />
+                    Compete
+                  </div>
                 <div className="space-y-1">
                   <NavItem href="#" icon={Wallet}>
                     Transactions
