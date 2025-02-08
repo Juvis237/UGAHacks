@@ -7,7 +7,7 @@ import { UserPlus, Trophy, TrendingUp, Target, Search, FileText, DollarSign } fr
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ChevronRight, FlameIcon as Fire, Star } from "lucide-react";
 import debounce from 'lodash/debounce';
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useRef } from "react"
 
 
 function ProfileCard() {
@@ -103,6 +103,7 @@ interface SECCompany {
     const [results, setResults] = useState<SECCompany[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
   
     // Popular companies remain static
     const popularCompanies: PopularCompany[] = [
@@ -128,7 +129,7 @@ interface SECCompany {
         const payload = {
           query: `name:*${searchQuery}* OR tickers:*${searchQuery}*`,
           from: 0,
-          size: 10,
+          size: 15,
           sort: [{ "cikUpdatedAt": "desc" }]
         };
   
@@ -168,6 +169,20 @@ interface SECCompany {
         debouncedSearch.cancel();
       };
     }, [searchTerm, debouncedSearch]);
+
+    // **Detect clicks outside the search container**
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+        if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+            setShowDropdown(false);
+        }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
   
     const handleCompanySelect = (company: SECCompany) => {
       setShowDropdown(false);
@@ -181,7 +196,7 @@ interface SECCompany {
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">Company Analysis</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">Search for financial documents</p>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-6" ref={searchRef}>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <Input
