@@ -5,6 +5,7 @@ import Layout from "./layout";
 import Content from "./content";
 import LearnContent from "./learn-content";
 import { useEffect, useState } from "react";
+import ProfilePage from "../user-profile";
 
 export default function Dashboard() {
   const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function Dashboard() {
       case "/learn":
         return <LearnContent />;
       default:
-        return <Content />;
+        return <ProfilePage />;
     }
   };
 
