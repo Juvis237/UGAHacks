@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { PointsProvider } from "@/context/PointsContext"; // Import the PointsProvider
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <PointsProvider>{children}</PointsProvider>
         </ThemeProvider>
       </body>
     </html>
