@@ -8,11 +8,19 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { ChevronRight, FlameIcon as Fire, Star } from "lucide-react";
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useState, useRef } from "react"
+import { motion } from "framer-motion";
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visibleLong: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
 
 
 function ProfileCard() {
   return (
-    <Card className="max-w-3xl mx-auto bg-white dark:bg-[#111111] border-gray-200 dark:border-[#222222] mb-6">
+    <motion.div variants={cardVariants} initial="hidden" animate="visible">
+    <Card className="max-w-3xl mx-auto bg-[#aa74ed] dark:bg-[#2e1a47] border-gray-200 dark:border-[#222222] mb-6">
       <CardContent className="p-6">
         <div className="flex items-start gap-6">
           <div className="relative">
@@ -21,10 +29,10 @@ function ProfileCard() {
                 src="/avatar.png?height=96&width=96"
                 alt="Profile Picture"
                 layout="fill"
-                className="rounded-lg object-cover border border-gray-300 dark:border-[#333333]"
+                className="rounded-lg object-cover border border-gray-300 dark:border-[#333333] bg-[#222222]"
               />
             </div>
-            <Badge className="absolute -top-2 -right-2 bg-gray-100 dark:bg-[#222222] text-gray-800 dark:text-white border-gray-300 dark:border-[#333333] px-2 py-1">
+            <Badge className="absolute -top-2 -right-2 bg-[#0057B8] text-white px-2 py-1">
               Level 5
             </Badge>
           </div>
@@ -32,12 +40,12 @@ function ProfileCard() {
           <div className="flex-1">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="text-xl font-medium text-gray-900 dark:text-white">Jane Investor</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Financial Strategy Expert</p>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white">Sabrina Carpenter</h2>
+                <p className="text-sm text-white-800 dark:text-gray-400">Finance Queen</p>
               </div>
               <Button
                 variant="outline"
-                className="bg-white dark:bg-[#222222] border-gray-300 dark:border-[#333333] hover:bg-gray-100 dark:hover:bg-[#333333] text-gray-800 dark:text-white"
+                className="bg-white bg-[#0057B8] border-gray-300 dark:border-[#333333] hover:bg-gray-100 dark:hover:bg-[#333333] text-gray-800 dark:text-white"
               >
                 <UserPlus className="mr-2 h-4 w-4" />
                 Add Friend
@@ -45,34 +53,42 @@ function ProfileCard() {
             </div>
 
             <div className="grid grid-cols-3 gap-4 mt-6">
-              <div className="bg-gray-50 dark:bg-[#1A1A1A] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
+
+            <motion.div variants={cardVariants} initial="hidden" animate="visibleLong">
+              <div className="bg-gray-50 dark:bg-[#5f3e87] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
                 <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
-                  <Trophy className="h-4 w-4" />
-                  <span className="text-xs">Ranking</span>
+                  <Trophy className="h-4 w-4" color="#FFD700"/>
+                  <span className="text-xs text-yellow-500">Ranking</span>
                 </div>
                 <p className="text-lg font-medium text-gray-900 dark:text-white">Top 10%</p>
               </div>
+              </motion.div>
 
-              <div className="bg-gray-50 dark:bg-[#1A1A1A] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
-              <div className="flex items-center gap-2 text-gray-400 mb-1">
+            <motion.div variants={cardVariants} initial="hidden" animate="visibleLong">
+              <div className="bg-gray-50 dark:bg-[#5f3e87] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
+                <div className="flex items-center gap-2 text-red-400 mb-1">
                     <Fire className="h-4 w-4 text-orange-500" />
                     <span className="text-xs">Daily Streak</span>
-                  </div>
+                </div>
                 <p className="text-lg font-medium text-green-600 dark:text-green-400">7 days</p>
               </div>
+              </motion.div>
 
-              <div className="bg-gray-50 dark:bg-[#1A1A1A] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
-                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
+            <motion.div variants={cardVariants} initial="hidden" animate="visibleLong">
+              <div className="bg-gray-50 dark:bg-[#5f3e87] rounded-lg p-4 border border-gray-200 dark:border-[#222222]">
+                <div className="flex items-center gap-2 text-blue-400 mb-1">
                   <Target className="h-4 w-4" />
                   <span className="text-xs">Completed</span>
                 </div>
                 <p className="text-lg font-medium text-gray-900 dark:text-white">15 Quests</p>
               </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
+    </motion.div>
   )
 }
 
@@ -191,6 +207,7 @@ interface SECCompany {
     };
   
     return (
+        <motion.div variants={cardVariants} initial="hidden" animate="visible">
       <Card className="max-w-3xl mx-auto bg-white dark:bg-[#111111] border-gray-200 dark:border-[#222222]">
         <CardHeader className="p-6 pb-0">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">Company Analysis</h3>
@@ -307,17 +324,25 @@ interface SECCompany {
           </div>
         </CardContent>
       </Card>
+      </motion.div>
     );
   };
 
-export default function ProfilePage() {
-  return (
-    <div className="min-h-screen text-gray-900 dark:text-white p-6">
-      <ProfileCard />
-      <CompanySearch />
-    </div>
-  )
-}
+  export default function ProfilePage() {
+    return (
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+        }}
+      >
+        <ProfileCard />
+        <CompanySearch />
+      </motion.div>
+    );
+  }
 
 
 
