@@ -48,7 +48,7 @@ export default function Sidebar() {
     <>
       <button
         type="button"
-        className="lg:hidden fixed top-4 left-4 z-[70] p-2 rounded-lg bg-white dark:bg-[#0F0F12] shadow-md"
+        className="lg:hidden fixed top-4 left-4 z-[70] p-2 rounded-lg bg-white dark:bg-[#E3170A] shadow-md"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
         <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
@@ -62,10 +62,10 @@ export default function Sidebar() {
       >
         <div className="h-full flex flex-col">
           <Link
-            href="https://kokonutui.com/"
+            href="dashboard"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-16 px-6 flex items-center border-b border-gray-200 dark:border-[#1F1F23]"
+            className="h-16 px-6 flex items-center border-b border-white-10 dark:border-[#1F1F23]"
           >
             <div className="flex items-center gap-3">
               <Image

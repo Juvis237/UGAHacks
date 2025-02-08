@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import {
   DropdownMenu,
@@ -14,12 +15,15 @@ import { ThemeToggle } from "../theme-toggle";
 interface BreadcrumbItem {
   label: string;
   href?: string;
+  label: string;
+  href?: string;
 }
 
 export default function TopNav() {
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: "kokonutUI", href: "#" },
+    { label: "kokonutUI", href: "dashboard" },
     { label: "dashboard", href: "#" },
+  ];
   ];
 
   return (
@@ -38,6 +42,9 @@ export default function TopNav() {
                 {item.label}
               </Link>
             ) : (
+              <span className="text-gray-900 dark:text-gray-100">
+                {item.label}
+              </span>
               <span className="text-gray-900 dark:text-gray-100">
                 {item.label}
               </span>
@@ -80,5 +87,6 @@ export default function TopNav() {
         </DropdownMenu>
       </div>
     </nav>
+  );
   );
 }
