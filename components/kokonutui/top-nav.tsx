@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { ChevronRight, FlameIcon as Fire, Star } from "lucide-react";
+import { ChevronRight, Flame, Star } from "lucide-react";
 import Profile01 from "./profile-01";
 import Link from "next/link";
 import { ThemeToggle } from "../theme-toggle";
@@ -23,12 +23,12 @@ export default function TopNav() {
   ];
 
   return (
-    <nav className="px-3 sm:px-6 flex items-center justify-between bg-white dark:bg-[#0F0F12] border-b border-gray-200 dark:border-[#1F1F23] h-full">
+    <nav className="px-3 sm:px-6 flex items-center justify-between bg-[#71569B] dark:bg-[#71569B] border-b border-gray-200 dark:border-[#1F1F23] h-full">
       <div className="font-medium text-sm hidden sm:flex items-center space-x-1 truncate max-w-[300px]">
         {breadcrumbs.map((item, index) => (
           <div key={item.label} className="flex items-center">
             {index > 0 && (
-              <ChevronRight className="h-4 w-4 text-gray-500 dark:text-gray-400 mx-1" />
+              <ChevronRight className="h-4 w-4 text-[F7F7F7 ] dark:text-gray-400 mx-1" />
             )}
             {item.href ? (
               <Link
@@ -42,15 +42,15 @@ export default function TopNav() {
                 {item.label}
               </span>
             )}
-          </div>
+          </div>  
         ))}
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4 ml-auto">
         <div className="flex items-center gap-2 sm:gap-4 text-sm">
           <div className="flex items-center gap-1">
-            <Fire className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-            <span className="font-medium text-lg">0</span>
+            <Flame className="h-6 w-6 text-red-300 dark:text-red-300" />
+            <span className="font-medium text-lg  ">0</span>
           </div>
           <div className="flex items-center gap-1">
             <Star className="h-6 w-6 text-yellow-500" />

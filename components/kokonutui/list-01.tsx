@@ -58,7 +58,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
     <div
       className={cn(
         "w-full max-w-xl mx-auto",
-        "bg-white dark:bg-zinc-900/70",
+        "bg-[#F0EDF8] dark:bg-[#1C1C1C]",
         "border border-zinc-100 dark:border-zinc-800",
         "rounded-xl shadow-sm backdrop-blur-xl",
         className,
@@ -96,7 +96,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
                   })}
                 >
                   {account.type === "savings" && (
-                    <Wallet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <Wallet className="w-3.5 h-3.5 text-[emerald]-600 dark:text-emerald-400" />
                   )}
                   {account.type === "checking" && <QrCode className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
                   {account.type === "investment" && (
@@ -129,9 +129,9 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "flex items-center justify-center gap-2",
               "py-2 px-3 rounded-lg",
               "text-xs font-medium",
-              "bg-zinc-900 dark:bg-zinc-50",
+              "bg-zinc-900 dark:bg-[#A7A3E0]",
               "text-zinc-50 dark:text-zinc-900",
-              "hover:bg-zinc-800 dark:hover:bg-zinc-200",
+              "hover:bg-zinc-800 dark:hover:bg-[#706D96]",
               "shadow-sm hover:shadow",
               "transition-all duration-200",
             )}
@@ -145,9 +145,9 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "flex items-center justify-center gap-2",
               "py-2 px-3 rounded-lg",
               "text-xs font-medium",
-              "bg-zinc-900 dark:bg-zinc-50",
+              "bg-zinc-900 dark:bg-[#A7A3E0]",
               "text-zinc-50 dark:text-zinc-900",
-              "hover:bg-zinc-800 dark:hover:bg-zinc-200",
+              "hover:bg-zinc-800 dark:hover:bg-[#706D96]",
               "shadow-sm hover:shadow",
               "transition-all duration-200",
             )}
@@ -161,9 +161,9 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "flex items-center justify-center gap-2",
               "py-2 px-3 rounded-lg",
               "text-xs font-medium",
-              "bg-zinc-900 dark:bg-zinc-50",
+              "bg-zinc-900 dark:bg-[#A7A3E0]",
               "text-zinc-50 dark:text-zinc-900",
-              "hover:bg-zinc-800 dark:hover:bg-zinc-200",
+              "hover:bg-zinc-800 dark:hover:bg-[#706D96]",
               "shadow-sm hover:shadow",
               "transition-all duration-200",
             )}
@@ -177,9 +177,9 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "flex items-center justify-center gap-2",
               "py-2 px-3 rounded-lg",
               "text-xs font-medium",
-              "bg-zinc-900 dark:bg-zinc-50",
+              "bg-zinc-900 dark:bg-[#A7A3E0]",
               "text-zinc-50 dark:text-zinc-900",
-              "hover:bg-zinc-800 dark:hover:bg-zinc-200",
+              "hover:bg-zinc-800 dark:hover:bg-[#706D96]",
               "shadow-sm hover:shadow",
               "transition-all duration-200",
             )}

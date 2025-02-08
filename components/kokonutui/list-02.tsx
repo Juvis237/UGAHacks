@@ -100,7 +100,7 @@ export default function List02({ transactions = TRANSACTIONS, className }: List0
     <div
       className={cn(
         "w-full max-w-xl mx-auto",
-        "bg-white dark:bg-zinc-900/70",
+        "bg-[#F0EDF8] dark:bg-[#F0EDF8]-900/70",
         "border border-zinc-100 dark:border-zinc-800",
         "rounded-xl shadow-sm backdrop-blur-xl",
         className,

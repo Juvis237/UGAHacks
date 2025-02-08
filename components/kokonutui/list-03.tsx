@@ -100,7 +100,7 @@ export default function List03({ items = ITEMS, className }: List03Props) {
             className={cn(
               "flex flex-col",
               "w-[280px] shrink-0",
-              "bg-white dark:bg-zinc-900/70",
+              "bg-[#F0EDF8] dark:bg-[#F0EDF8]-900/70",
               "rounded-xl",
               "border border-zinc-100 dark:border-zinc-800",
               "hover:border-zinc-200 dark:hover:border-zinc-700",

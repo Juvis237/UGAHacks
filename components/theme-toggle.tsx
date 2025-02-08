@@ -21,8 +21,8 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="relative p-2 hover:bg-gray-100 dark:hover:bg-[#1F1F23] rounded-full transition-colors"
     >
-      <Sun className="h-5 w-5 text-gray-600 dark:text-gray-300 transition-all dark:hidden" />
-      <Moon className="h-5 w-5 text-gray-600 dark:text-gray-300 transition-all hidden dark:block" />
+  <Sun className="h-5 w-5 text-yellow-400 dark:text-yellow-200 transition-all dark:hidden" />
+  <Moon className="h-5 w-5 text-slate-400 dark:text-slate-200 transition-all hidden dark:block" />
       <span className="sr-only">Toggle theme</span>
     </button>
   )
