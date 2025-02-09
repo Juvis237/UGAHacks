@@ -1,3 +1,6 @@
+***THE MAIN WORKING BRANCH IS JUVMERGER!!!!!!!!!!!!
+
+
 # 💰 Finance Learning Game  
 An interactive, gamified financial literacy app designed to teach **balance sheets, income statements, and cash flow statements** through engaging lessons, leaderboards, and challenges. Inspired by **Duolingo & Coinbase Learn**.  
 
