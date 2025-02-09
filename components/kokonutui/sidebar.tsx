@@ -11,10 +11,10 @@ import {
   ShoppingCart,
   Users,
 } from "lucide-react";
-
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,6 +23,7 @@ export default function Sidebar() {
     setIsMobileMenuOpen(false);
   }
 
+  // NavItem component with hover animations.
   function NavItem({
     href,
     icon: Icon,
@@ -32,14 +33,35 @@ export default function Sidebar() {
     icon: any;
     children: React.ReactNode;
   }) {
+    // For demonstration, we'll apply a gold hover effect on the icon if this nav item is "compete".
+    const isCompete = href === "/compete";
+
     return (
-      <Link
-        href={href}
-        onClick={handleNavigation}
-        className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
-      >
-        <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
-        {children}
+      <Link href={href} onClick={handleNavigation}>
+        <motion.div
+          className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
+          initial={{ backgroundColor: "transparent" }}
+          whileHover={{ scale: 1.05, backgroundColor: "rgba(229,231,235,1)" }}
+        >
+          <motion.span
+            className="h-4 w-4 mr-3 flex-shrink-0"
+            initial={{ color: "inherit", stroke: "currentColor" }}
+            whileHover={
+              isCompete ? { color: "#FFD700", stroke: "#FFD700" } : {}
+            }
+            transition={{ type: "tween", duration: 0.2 }}
+          >
+            <Icon />
+          </motion.span>
+          {/* No hover effect is applied to the text */}
+          <motion.span
+            className="text-gray-600 dark:text-gray-300"
+            initial={{ color: "inherit" }}
+            whileHover={{}}
+          >
+            {children}
+          </motion.span>
+        </motion.div>
       </Link>
     );
   }
@@ -54,11 +76,9 @@ export default function Sidebar() {
         <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
       </button>
       <nav
-        className={`
-          fixed inset-y-0 left-0 z-[70] w-64 bg-white dark:bg-[#0F0F12] transform transition-transform duration-200 ease-in-out
-          lg:translate-x-0 lg:static lg:w-64 border-r border-gray-200 dark:border-[#1F1F23]
-          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className={`fixed inset-y-0 left-0 z-[70] w-64 bg-white dark:bg-[#0F0F12] transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:w-64 border-r border-gray-200 dark:border-[#1F1F23] ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div className="h-full flex flex-col">
           <Link
@@ -70,14 +90,14 @@ export default function Sidebar() {
             <div className="flex items-center gap-3">
               <Image
                 src="https://kokonutui.com/logo.svg"
-                alt="Acme"
+                alt="KokonutUI Logo"
                 width={32}
                 height={32}
                 className="flex-shrink-0 hidden dark:block"
               />
               <Image
                 src="https://kokonutui.com/logo-black.svg"
-                alt="Acme"
+                alt="KokonutUI Logo"
                 width={32}
                 height={32}
                 className="flex-shrink-0 block dark:hidden"
@@ -90,27 +110,25 @@ export default function Sidebar() {
 
           <div className="flex-1 overflow-y-auto py-4 px-4">
             <div className="space-y-6">
-              <div>
-                <div className="space-y-1">
-                  <NavItem href="/dashboard" icon={User}>
-                    Account
-                  </NavItem>
-                  <NavItem href="/learn" icon={BookOpen}>
-                    Learn
-                  </NavItem>
-                  <NavItem href="/compete" icon={Trophy}>
-                    Compete
-                  </NavItem>
-                  <NavItem href="/leaderboards" icon={BarChart2}>
-                    Leaderboards
-                  </NavItem>
-                  <NavItem href="/shop" icon={ShoppingCart}>
-                    Shop
-                  </NavItem>
-                  <NavItem href="/friends" icon={Users}>
-                    Friends
-                  </NavItem>
-                </div>
+              <div className="space-y-1">
+                <NavItem href="/dashboard" icon={User}>
+                  Account
+                </NavItem>
+                <NavItem href="/learn" icon={BookOpen}>
+                  Learn
+                </NavItem>
+                <NavItem href="/compete" icon={Trophy}>
+                  Compete
+                </NavItem>
+                <NavItem href="/leaderboards" icon={BarChart2}>
+                  Leaderboards
+                </NavItem>
+                <NavItem href="/shop" icon={ShoppingCart}>
+                  Shop
+                </NavItem>
+                <NavItem href="/friends" icon={Users}>
+                  Friends
+                </NavItem>
               </div>
             </div>
           </div>
