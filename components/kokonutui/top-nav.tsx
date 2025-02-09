@@ -10,6 +10,7 @@ import { ChevronRight, FlameIcon as Fire, Star } from "lucide-react";
 import Profile01 from "./profile-01";
 import Link from "next/link";
 import { ThemeToggle } from "../theme-toggle";
+import { usePoints } from "@/context/PointsContext"; // Import the points hook
 
 interface BreadcrumbItem {
   label: string;
@@ -21,6 +22,9 @@ export default function TopNav() {
     { label: "kokonutUI", href: "#" },
     { label: "dashboard", href: "#" },
   ];
+
+  // Get the current points from the Points context.
+  const { points } = usePoints();
 
   return (
     <nav className="px-3 sm:px-6 flex items-center justify-between bg-white dark:bg-[#0F0F12] border-b border-gray-200 dark:border-[#1F1F23] h-full">
@@ -49,12 +53,14 @@ export default function TopNav() {
       <div className="flex items-center gap-2 sm:gap-4 ml-auto">
         <div className="flex items-center gap-2 sm:gap-4 text-sm">
           <div className="flex items-center gap-1">
-            <Fire className="h-4 w-4 text-orange-500" />
-            <span className="font-medium">5</span>
+            <Fire className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+            {/* Replace the static "0" with the actual score if needed */}
+            <span className="font-medium text-lg">0</span>
           </div>
           <div className="flex items-center gap-1">
-            <Star className="h-4 w-4 text-yellow-500" />
-            <span className="font-medium">0</span>
+            <Star className="h-6 w-6 text-yellow-500" />
+            {/* Display the current points from context */}
+            <span className="font-medium text-lg">{points}</span>
           </div>
         </div>
 
@@ -65,8 +71,8 @@ export default function TopNav() {
             <Image
               src="https://ferf1mheo22r9ira.public.blob.vercel-storage.com/avatar-01-n0x8HFv8EUetf9z6ht0wScJKoTHqf8.png"
               alt="User avatar"
-              width={28}
-              height={28}
+              width={32}
+              height={32}
               className="rounded-full ring-2 ring-gray-200 dark:ring-[#2B2B30] sm:w-8 sm:h-8 cursor-pointer"
             />
           </DropdownMenuTrigger>
