@@ -198,7 +198,7 @@ const Insights = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center ">
-      <div className="bg-white p-2 rounded-lg border-2 border-red-300 shadow-md w-3/4 ">
+      <div className="bg-white p-2 rounded-lg  shadow-md w-3/4 ">
         <h1 className="text-2xl font-semibold text-center text-gray-900 mb-6">
           Get Insights from 10-K Filing
         </h1>

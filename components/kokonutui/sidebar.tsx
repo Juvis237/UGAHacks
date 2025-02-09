@@ -98,7 +98,7 @@ export default function Sidebar() {
                   <NavItem href="/learn" icon={BookOpen}>
                     Learn
                   </NavItem>
-                  <NavItem href="/compete" icon={Trophy}>
+                  <NavItem href="/battle" icon={Trophy}>
                     Compete
                   </NavItem>
                   <NavItem href="/leaderboards" icon={BarChart2}>
