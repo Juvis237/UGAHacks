@@ -1,0 +1,177 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+N = 256
+rho_star = 0.636
+E_total_star = 101.79
+r_cut = 2.5
+dt = 0.0001
+num_steps = 1000
+
+# Compute box size for FCC lattice
+a = (4 / rho_star) ** (1/3)
+n_uc = 4  # 4x4x4 unit cells
+L = n_uc * a
+
+# Initialize positions in FCC lattice
+positions = []
+for i in range(n_uc):
+    for j in range(n_uc):
+        for k in range(n_uc):
+            base_x = i * a
+            base_y = j * a
+            base_z = k * a
+            positions.append([base_x, base_y, base_z])
+            positions.append([base_x + 0.5*a, base_y + 0.5*a, base_z])
+            positions.append([base_x + 0.5*a, base_y, base_z + 0.5*a])
+            positions.append([base_x, base_y + 0.5*a, base_z + 0.5*a])
+def center_positions(positions, length = L):
+    """
+    Centers positions within the range [-L/2, L/2] using periodic boundaries.
+
+    Parameters:
+    positions : numpy array
+        Array of positions (can be 1D or 2D).
+    L : float
+        Length of the periodic box.
+
+    Returns:
+    numpy array
+        Positions wrapped within [-L/2, L/2].
+    """
+    return positions - L * np.round(positions / length)
+
+positions = center_positions(np.array(positions))  # Apply periodic boundary conditions
+
+
+
+V_cut = 4.0 * ((1.0/r_cut)**12 - (1.0/r_cut)**6)
+U = 0.0
+# Function to compute potential energy
+def compute_potential_energy(pos, L, r_cut):
+    U = 0.0
+    for i in range(N-1):
+        for j in range(i+1, N):
+            dr = pos[j] - pos[i]
+            dr -= np.round(dr / L) * L
+            r = np.linalg.norm(dr)
+           
+            if r < r_cut:
+                inv_r = 1.0 / r
+                inv_r6 = inv_r**6
+                inv_r12 = inv_r6**2
+                U += 4.0 * (inv_r12 - inv_r6) - V_cut 
+    return U
+U = compute_potential_energy(positions, L, r_cut)
+print("Initial p.E:", U)
+
+# Initialize velocities
+velocities = np.random.normal(0, 1.0, (N, 3))
+com_velocity = np.mean(velocities, axis=0)
+velocities -= com_velocity
+K_current = 0.5 * np.sum(velocities**2)
+scale_factor = np.sqrt((E_total_star - U) / K_current)
+velocities *= scale_factor
+print("Initial K.E:", 0.5 * np.sum(velocities**2))
+
+# Arrays to store energy values
+total_energy = np.zeros(num_steps)
+kinetic_energy = np.zeros(num_steps)
+potential_energy = np.zeros(num_steps)
+
+def generate_energy_data(filename, num_steps):
+    """
+    Generates a .dat file with 4 columns: Step, Kinetic Energy, Potential Energy, and Total Energy.
+
+    Parameters:
+    filename : str
+        Name of the output .dat file.
+    num_steps : int
+        Number of steps to generate data for.
+    """
+    with open(filename, "w") as file:
+        # Write header
+        file.write("# Step    KineticEnergy    PotentialEnergy    TotalEnergy\n")
+        
+        for step in range(1, num_steps + 1):
+            kinetic_energy = np.random.uniform(10, 50)  # Random kinetic energy
+            potential_energy = np.random.uniform(-50, -10)  # Random potential energy
+            total_energy = kinetic_energy + potential_energy  # Compute total energy
+            
+            # Write data to file
+            file.write(f"{step:6d}    {kinetic_energy:12.6f}    {potential_energy:14.6f}    {total_energy:12.6f}\n")
+
+# Function to compute forces
+def compute_forces(pos, L, r_cut):
+    N = pos.shape[0]
+    forces = np.zeros((N, 3))
+    for i in range(N-1):
+        for j in range(i+1, N):
+            dr = pos[i] - pos[j]
+            dr -= np.round(dr / L) * L
+            r = np.linalg.norm(dr)
+            # Alternatively, using np.max()
+            
+            if r < r_cut:
+                inv_r = 1.0 / r
+                inv_r6 = inv_r**6
+                inv_r12 = inv_r6**2 
+                f = 24.0 * inv_r * (2 * inv_r12 - inv_r6)
+                forces[i] += f * dr /r
+                forces[j] -= f * dr /r
+    return forces
+
+
+
+# Initialize previous positions for Verlet algorithm
+forces = compute_forces(positions, L, r_cut)
+positions_prev = positions - velocities * dt + 0.5 * forces * dt**2
+positions_prev = center_positions(positions_prev)  # Apply boundary conditions
+
+
+U = compute_potential_energy(positions, L, r_cut)
+K = 0.5 * np.sum(velocities**2)
+E_total = U + K
+# Molecular Dynamics loop
+for step in range(num_steps):
+    if step % 100 == 0:
+        print(f"Step {step}: K = {K}, U = {U}, E_total = {E_total}")
+    
+    # Compute forces at current step
+    forces = compute_forces(positions, L, r_cut)
+    
+    # Update positions using Verlet algorithm
+    positions_new = 2 * positions - positions_prev + forces * dt**2
+    positions_new = center_positions(positions_new )  # Apply boundary conditions
+    
+    # Update velocities
+    velocities = (positions_new - positions_prev) / (2 * dt)
+    
+    # Update previous positions
+    positions_prev = positions
+    positions = positions_new
+    
+    # Compute energies
+    U = compute_potential_energy(positions, L, r_cut)
+    K = 0.5 * np.sum(velocities**2)
+    E_total = U + K
+    
+    # Store energies
+    total_energy[step] = E_total
+    kinetic_energy[step] = K
+    potential_energy[step] = U
+
+# Plot the energies
+plt.figure(figsize=(10, 6))
+plt.plot(range(num_steps), total_energy, label='Total Energy')
+plt.plot(range(num_steps), kinetic_energy, label='Kinetic Energy')
+plt.plot(range(num_steps), potential_energy, label='Potential Energy')
+plt.xlabel('Time Step')
+plt.ylabel('Energy')
+plt.title('Energy vs Time Step')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print("Simulation completed successfully.")
